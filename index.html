@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>顾国亮 | AI & 数据科学 作品集</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #12121a;
+    --card: #161622;
+    --border: #1e1e32;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --accent: #6366f1;
+    --accent2: #818cf8;
+    --gold: #f59e0b;
+    --green: #10b981;
+    --red: #ef4444;
+    --blue: #3b82f6;
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ===== 粒子背景 ===== */
+  #particles {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ===== 导航栏 ===== */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .navbar .logo {
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent2), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a {
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent2); }
+
+  /* ===== 移动端汉堡菜单 ===== */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  /* ===== 内容容器 ===== */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ===== Hero 区 ===== */
+  .hero {
+    padding: 140px 0 80px;
+    text-align: center;
+  }
+  .hero .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+    margin: 0 auto 24px;
+    box-shadow: 0 0 60px rgba(99,102,241,0.3);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 60px rgba(99,102,241,0.3); }
+    50% { box-shadow: 0 0 80px rgba(99,102,241,0.5); }
+  }
+  .hero h1 {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .hero h1 .highlight {
+    background: linear-gradient(135deg, var(--accent2), #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero .tagline {
+    font-size: 17px;
+    color: var(--text2);
+    margin-bottom: 20px;
+  }
+  .hero .quick-info {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .hero .quick-info .qi-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 13px;
+    color: var(--text2);
+  }
+  .hero .quick-info .qi-item strong { color: var(--text); }
+  .hero .cta {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: all 0.25s;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .btn-outline:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  /* ===== Section 通用 ===== */
+  .section {
+    padding: 60px 0;
+  }
+  .section-title {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .section-subtitle {
+    text-align: center;
+    color: var(--text2);
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
+
+  /* ===== 技能矩阵 ===== */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    transition: border-color 0.3s;
+  }
+  .skill-card:hover { border-color: var(--accent); }
+  .skill-card .sc-icon { font-size: 24px; margin-bottom: 8px; }
+  .skill-card h4 { font-size: 15px; margin-bottom: 6px; }
+  .skill-card .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .skill-card .tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: rgba(99,102,241,0.15);
+    color: var(--accent2);
+    font-family: "SF Mono", "Consolas", monospace;
+  }
+
+  /* ===== 项目卡片 ===== */
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--border);
+    transition: background 0.3s;
+  }
+  .project-card:hover::before { background: var(--accent); }
+  .project-card:hover { border-color: #2a2a4a; transform: translateX(4px); }
+  .project-card .pc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .project-card .pc-name {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .project-card .pc-badge {
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  .badge-ai { background: rgba(99,102,241,0.2); color: var(--accent2); }
+  .badge-ml { background: rgba(16,185,129,0.2); color: var(--green); }
+  .badge-web { background: rgba(245,158,11,0.2); color: var(--gold); }
+  .badge-data { background: rgba(59,130,246,0.2); color: var(--blue); }
+  .project-card .pc-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .project-card .pc-tag {
+    font-size: 11px;
+    background: rgba(255,255,255,0.04);
+    color: var(--text2);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: "SF Mono", "Consolas", monospace;
+  }
+  .project-card .pc-desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.7;
+  }
+  .project-card .pc-desc li {
+    list-style: none;
+    padding: 2px 0 2px 16px;
+    position: relative;
+  }
+  .project-card .pc-desc li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent2);
+    font-size: 10px;
+    top: 4px;
+  }
+  .project-card .pc-highlight {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 12px;
+    padding: 4px 10px;
+    background: rgba(245,158,11,0.1);
+    border-radius: 6px;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ===== 关于我 ===== */
+  .about-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.8;
+  }
+  .about-box p { margin-bottom: 8px; }
+  .about-box strong { color: var(--text); }
+
+  /* ===== Footer ===== */
+  .footer {
+    text-align: center;
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+  .footer .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .footer .contact-links a {
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .footer .contact-links a:hover { color: var(--accent2); }
+  .footer .copy { font-size: 12px; color: #555; }
+
+  /* ===== 回到顶部按钮 ===== */
+  .back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 99;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(99,102,241,0.3);
+    transition: all 0.3s;
+  }
+  .back-to-top:hover { background: var(--accent2); transform: translateY(-2px); }
+  .back-to-top.show { display: flex; }
+
+  /* ===== 响应式 ===== */
+  @media (max-width: 768px) {
+    .hero { padding: 100px 0 50px; }
+    .hero h1 { font-size: 28px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .nav-links { gap: 14px; }
+    .nav-links a { font-size: 13px; }
+    .hero .quick-info { gap: 10px; }
+    .hero .quick-info .qi-item { padding: 8px 14px; font-size: 12px; }
+    .back-to-top { bottom: 20px; right: 20px; width: 38px; height: 38px; }
+  }
+
+  /* ===== 动效 ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+</style>
+</head>
+<body>
+
+<!-- 粒子背景 -->
+<canvas id="particles"></canvas>
+
+<!-- 回到顶部按钮 -->
+<button class="back-to-top" id="backToTop" title="回到顶部">↑</button>
+
+<!-- 导航栏 -->
+<nav class="navbar">
+  <span class="logo">GGL.dev</span>
+  <ul class="nav-links">
+    <li><a href="#projects">项目</a></li>
+    <li><a href="#skills">技能</a></li>
+    <li><a href="#about">关于</a></li>
+    <li><a href="#contact">联系</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero fade-up">
+    <div class="avatar">🧠</div>
+    <h1>Hi, 我是<span class="highlight">顾国亮</span></h1>
+    <p class="tagline">数据科学与大数据技术 · 本科在读 · 专注 AI & 机器学习</p>
+    <div class="quick-info">
+      <div class="qi-item">🎓 <strong>数据科学与大数据技术</strong></div>
+      <div class="qi-item">📍 <strong>期望城市：北上广深</strong></div>
+      <div class="qi-item">💼 <strong>求职意向：AI / ML 实习</strong></div>
+    </div>
+    <div class="cta">
+      <a href="#projects" class="btn btn-primary">📂 查看项目</a>
+      <a href="#contact" class="btn btn-outline">📧 联系我</a>
+      <a href="顾国亮_简历.html" class="btn btn-outline" target="_blank">📄 下载简历</a>
+    </div>
+  </section>
+
+  <!-- ===== 项目经历 ===== -->
+  <section class="section" id="projects">
+    <h2 class="section-title">项目经历</h2>
+    <p class="section-subtitle">8 个实战项目 · 覆盖 AI / ML / Web / 数据科学</p>
+
+    <div class="projects-list">
+
+      <!-- 项目1: 情感交互 -->
+      <div class="project-card fade-up">
+        <div class="pc-header">
+          <span class="pc-name">🧠 智能机器人情感交互系统</span>
+          <span class="pc-badge badge-ai">AI / CV / NLP</span>
+        </div>
+        <div class="pc-tags">
+          <span class="pc-tag">Python</span><span class="pc-tag">TensorFlow/Keras</span><span class="pc-tag">OpenCV</span><span class="pc-tag">大模型API</span><span class="pc-tag">模块化架构</span>
+        </div>
+        <div class="pc-desc">
+          <ul>
+            <li>模块化架构拆分为人脸检测、情绪识别、智能对话、摄像头管理等6大功能模块</li>
+            <li>基于OpenCV Haar Cascade实时人脸检测，帧率20+ FPS</li>
+            <li>CNN模型实现7分类情绪识别，接入大模型API实现情感化智能回复</li>
+            <li>关键词匹配降级方案保障大模型不可用时的系统可用性</li>
+            <li>完成摄像头采集→人脸检测→情绪识别→对话输出全链路打通</li>
+          </ul>
+        </div>
+        <span class="pc-highlight">⭐ 核心项目 · 从模型到工程化的完整实践</span>
+      </div>
+
+      <!-- 项目2: 情绪识别模型 -->
+      <div class="project-card fade-up">
+        <div class="pc-header">
+          <span class="pc-name">😊 人脸情绪识别AI模型 — 数据采集与特征工程</span>
+          <span class="pc-badge badge-ai">AI / CV / 数据工程</span>
+        </div>
+        <div class="pc-tags">
+          <span class="pc-tag">Python</span><span class="pc-tag">OpenCV</span><span class="pc-tag">TensorFlow/Keras</span><span class="pc-tag">CNN</span><span class="pc-tag">数据增强</span>
+        </div>
+        <div class="pc-desc">
+          <ul>
+            <li>构建1000+张人脸情绪数据集，覆盖7种基本情绪，制定数据采集规范</li>
+            <li>编写自动化数据清洗脚本，多维度质量检查保障数据质量</li>
+            <li>6种数据增强策略扩充数据集5倍以上，提升模型泛化能力</li>
+            <li>多维度数据分析：类别分布、亮度/清晰度分布、情绪混淆对分析</li>
+            <li>CNN模型训练与调优，正负面情绪二分类准确率达57%+</li>
+          </ul>
+        </div>
+        <span class="pc-highlight">⭐ 从数据采集到模型训练的完整AI项目流程</span>
+      </div>
+
+      <!-- 项目3: 集成学习 -->
+      <div class="project-card fade-up">
+        <div class="pc-header">
+          <span class="pc-name">📊 集成学习模型对比分析 — Titanic生存预测</span>
+          <span class="pc-badge badge-ml">机器学习</span>
+        </div>
+        <div class="pc-tags">
+          <span class="pc-tag">Python</span><span class="pc-tag">Scikit-learn</span><span class="pc-tag">XGBoost</span><span class="pc-tag">GridSearchCV</span><span class="pc-tag">交叉验证</span>
+        </div>
+        <div class="pc-desc">
+          <ul>
+            <li>对比5种模型：逻辑回归、决策树、随机森林(Bagging)、AdaBoost、XGBoost(Boosting)</li>
+            <li>5折交叉验证 + GridSearchCV超参数调优</li>
+            <li>多维评估：准确率、精确率、召回率、F1、AUC，输出完整对比报告</li>
+            <li>随机森林准确率81.3%，AUC 0.785，验证集成学习有效性</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 项目4: 决策树 -->
+      <div class="project-card fade-up">
+        <div class="pc-header">
+          <span class="pc-name">🌲 决策树算法实训 — 交通事故预测</span>
+          <span class="pc-badge badge-ml">机器学习</span>
+        </div>
+        <div class="pc-tags">
+          <span class="pc-tag">Python</span><span class="pc-tag">Scikit-learn</span><span class="pc-tag">Pandas</span><span class="pc-tag">特征工程</span><span class="pc-tag">过拟合诊断</span>
+        </div>
+        <div class="pc-desc">
+          <ul>
+            <li>800条交通事故数据全流程处理：探索、清洗、编码、建模</li>
+            <li>分类决策树(3分类) + 回归决策树(响应时间预测 R²=0.84)</li>
+            <li>剪枝实验对比4种深度，绘制学习曲线定位过拟合拐点</li>
+            <li>特征重要性分析：路段类型、限速等级、驾龄分级为Top3</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 项目5: 漏洞靶场 -->
+      <div class="project-card fade-up">
+        <div class="pc-header">
+          <span class="pc-name">🔒 Web安全漏洞靶场 (SRC漏洞挖掘练习平台)</span>
+          <span class="pc-badge badge-web">Web安全</span>
+        </div>
+        <div class="pc-tags">
+          <span class="pc-tag">Python</span><span class="pc-tag">Flask</span><span class="pc-tag">SQLite</span><span class="pc-tag">OWASP Top 10</span><span class="pc-tag">全栈开发</span>
+        </div>
+        <div class="pc-desc">
+          <ul>
+            <li>独立开发涵盖7大类Web漏洞的练习平台（IDOR、XSS、SQL注入、RCE等）</li>
+            <li>模拟真实业务场景：用户系统、论坛、转账、Ping工具等</li>
+            <li>深入理解Web安全攻防原理及修复方案</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 项目6: 个人作品集网站 -->
+      <div class="project-card fade-up">
+        <div class="pc-header">
+          <span class="pc-name">🌐 个人作品集网站</span>
+          <span class="pc-badge badge-web">前端开发</span>
+        </div>
+        <div class="pc-tags">
+          <span class="pc-tag">HTML5</span><span class="pc-tag">CSS3</span><span class="pc-tag">JavaScript</span><span class="pc-tag">Canvas动画</span><span class="pc-tag">响应式设计</span><span class="pc-tag">Claude Code</span>
+        </div>
+        <div class="pc-desc">
+          <ul>
+            <li>独立设计并开发个人作品集展示网站，展示8个AI/ML/数据科学实战项目</li>
+            <li>实现Canvas粒子动画背景与粒子连线交互，打造科技感视觉体验</li>
+            <li>暗黑主题UI + 响应式布局，适配PC与移动端；Intersection Observer滚动渐显动画</li>
+            <li>借助Claude Code / Codex等AI编程工具辅助开发，高效完成设计到部署全流程</li>
+          </ul>
+        </div>
+        <span class="pc-highlight">🆕 最新作品 · 欢迎在线体验</span>
+      </div>
+
+      <!-- 项目7: 数据爬取 -->
+      <div class="project-card fade-up">
+        <div class="pc-header">
+          <span class="pc-name">🕷️ 纵横小说数据爬取与可视化分析</span>
+          <span class="pc-badge badge-data">数据工程</span>
+        </div>
+        <div class="pc-tags">
+          <span class="pc-tag">Python</span><span class="pc-tag">Requests</span><span class="pc-tag">反爬策略</span><span class="pc-tag">Matplotlib</span><span class="pc-tag">数据可视化</span>
+        </div>
+        <div class="pc-desc">
+          <ul>
+            <li>爬取3500+条小说数据，移动端请求头模拟 + Session保持突破反爬（2025年项目）</li>
+            <li>3次重试机制 + 随机延时 + 动态Referer保障爬取稳定性</li>
+            <li>多维度分析与专业可视化图表（300DPI），3份CSV结构化存储</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 项目8: 自动写诗 -->
+      <div class="project-card fade-up">
+        <div class="pc-header">
+          <span class="pc-name">📝 自动写诗程序</span>
+          <span class="pc-badge badge-ai">NLP / 文本生成</span>
+        </div>
+        <div class="pc-tags">
+          <span class="pc-tag">Python</span><span class="pc-tag">NLP</span><span class="pc-tag">文本生成</span><span class="pc-tag">规则引擎</span>
+        </div>
+        <div class="pc-desc">
+          <ul>
+            <li>支持五言/七言绝句等多种古诗词体裁的自动生成（2025年项目）</li>
+            <li>押韵规则 + 平仄控制，保障格律规范性</li>
+            <li>主题关键词引导生成，提升语义连贯性与文学性</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== 技能 ===== -->
+  <section class="section" id="skills">
+    <h2 class="section-title">技能矩阵</h2>
+    <p class="section-subtitle">持续学习 · 专注于 AI / ML 方向</p>
+    <div class="skills-grid">
+      <div class="skill-card fade-up">
+        <div class="sc-icon">🤖</div>
+        <h4>机器学习 / 深度学习</h4>
+        <div class="tags">
+          <span class="tag">TensorFlow</span><span class="tag">Keras</span><span class="tag">Scikit-learn</span><span class="tag">XGBoost</span><span class="tag">CNN</span><span class="tag">GridSearchCV</span><span class="tag">交叉验证</span><span class="tag">过拟合诊断</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="sc-icon">👁️</div>
+        <h4>计算机视觉</h4>
+        <div class="tags">
+          <span class="tag">OpenCV</span><span class="tag">Haar Cascade</span><span class="tag">人脸检测</span><span class="tag">情绪识别</span><span class="tag">图像预处理</span><span class="tag">数据增强</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="sc-icon">📊</div>
+        <h4>数据分析 / 可视化</h4>
+        <div class="tags">
+          <span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Matplotlib</span><span class="tag">SPSS</span><span class="tag">数据清洗</span><span class="tag">特征工程</span><span class="tag">统计分析</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="sc-icon">🌐</div>
+        <h4>Web开发 / 爬虫</h4>
+        <div class="tags">
+          <span class="tag">Flask</span><span class="tag">HTML5/CSS3</span><span class="tag">JavaScript</span><span class="tag">Requests</span><span class="tag">SQLite</span><span class="tag">反爬策略</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="sc-icon">🔧</div>
+        <h4>工具 / 工程能力</h4>
+        <div class="tags">
+          <span class="tag">Git</span><span class="tag">Claude Code</span><span class="tag">Codex</span><span class="tag">模块化设计</span><span class="tag">配置管理</span><span class="tag">降级方案</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="sc-icon">🎨</div>
+        <h4>办公 / 设计软件</h4>
+        <div class="tags">
+          <span class="tag">WPS</span><span class="tag">Photoshop (PS)</span><span class="tag">Premiere Pro (PR)</span><span class="tag">Microsoft Office</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 关于 ===== -->
+  <section class="section" id="about">
+    <h2 class="section-title">关于我</h2>
+    <p class="section-subtitle">热爱技术 · 动手实践 · 持续成长</p>
+    <div class="about-box fade-up">
+      <p>
+        我是<strong>顾国亮</strong>，数据科学与大数据技术专业本科在读，今年19岁。
+      </p>
+      <p>
+        对<strong>人工智能与机器学习</strong>充满热情，从模型训练到工程落地都有实践经验。
+        独立完成了<strong>8个实战项目</strong>，涵盖深度学习（CNN情绪识别）、传统机器学习（集成学习/决策树）、
+        计算机视觉（OpenCV人脸检测）、Web全栈开发（Flask安全靶场 & 作品集网站）和数据工程（爬虫+可视化）。
+      </p>
+      <p>
+        熟练使用<strong>Claude Code、Codex 等 AI 编程工具</strong>，能高效完成项目开发。
+        目前正在寻找一份<strong>AI / 机器学习方向</strong>的实习机会，
+        希望能在实际工作场景中继续成长，用技术创造价值 🔥
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== 联系 ===== -->
+  <footer class="footer" id="contact">
+    <h2 class="section-title" style="margin-bottom:20px;">联系我</h2>
+    <div class="contact-links">
+      <a href="mailto:gxc291517@outlook.com">📧 gxc291517@outlook.com</a>
+      <a href="tel:15196172726">📱 15196172726</a>
+      <a href="顾国亮_简历.html" target="_blank">📄 下载简历</a>
+    </div>
+    <p class="copy">© 2026 顾国亮 · 用 ❤️ 和 Python 构建</p>
+  </footer>
+
+</div>
+
+<!-- 粒子动画脚本 -->
+<script>
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  const particles = [];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  class Particle {
+    constructor() {
+      this.reset();
+      this.y = Math.random() * canvas.height;
+    }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = -10;
+      this.size = Math.random() * 2 + 0.5;
+      this.speed = Math.random() * 0.6 + 0.2;
+      this.opacity = Math.random() * 0.5 + 0.1;
+      this.wobble = Math.random() * 0.4 - 0.2;
+    }
+    update() {
+      this.y += this.speed;
+      this.x += this.wobble;
+      if (this.y > canvas.height + 10) { this.reset(); this.y = -10; }
+      if (this.x < 0) this.x = canvas.width;
+      if (this.x > canvas.width) this.x = 0;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(99, 102, 241, ${this.opacity})`;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 60; i++) {
+    particles.push(new Particle());
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(99, 102, 241, ${0.06 * (1 - dist/120)})`;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // 滚动渐显
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.project-card, .skill-card, .about-box').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'all 0.6s ease-out';
+    observer.observe(el);
+  });
+
+  // 回到顶部按钮
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+      backToTop.classList.add('show');
+    } else {
+      backToTop.classList.remove('show');
+    }
+  });
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>

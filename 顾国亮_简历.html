@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>顾国亮 - 个人简历</title>
+<style>
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Noto Sans SC", sans-serif;
+    background: #e8ecf1;
+    display: flex;
+    justify-content: center;
+    color: #333;
+    line-height: 1.65;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    background: #fff;
+    margin: 20px auto;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+  }
+
+  /* ===== 头部 ===== */
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #fff;
+    padding: 32px 48px 24px;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    margin-bottom: 4px;
+  }
+  .header .subtitle {
+    font-size: 15px;
+    color: #a8c8f0;
+    margin-bottom: 12px;
+  }
+  .header .contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    font-size: 13px;
+    color: #ccd6e0;
+  }
+  .header .contact-row span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* ===== 主体 ===== */
+  .body {
+    padding: 20px 48px 32px;
+  }
+
+  .section {
+    margin-bottom: 20px;
+  }
+  .section:last-child { margin-bottom: 0; }
+
+  .section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #0f3460;
+    border-bottom: 2px solid #0f3460;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 18px;
+    background: #f59e0b;
+    border-radius: 3px;
+  }
+
+  /* ===== 基本信息表格 ===== */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px 40px;
+    font-size: 14px;
+  }
+  .info-grid .item {
+    display: flex;
+    padding: 4px 0;
+  }
+  .info-grid .label {
+    color: #666;
+    min-width: 70px;
+  }
+  .info-grid .value {
+    color: #222;
+    font-weight: 500;
+  }
+
+  /* ===== 项目卡片 ===== */
+  .project {
+    margin-bottom: 14px;
+    border-left: 3px solid #e2e8f0;
+    padding-left: 14px;
+    transition: border-color 0.2s;
+  }
+  .project:hover { border-left-color: #f59e0b; }
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+  .project-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+  .project-role {
+    font-size: 12px;
+    color: #f59e0b;
+    background: #fef3c7;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .project-meta {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 4px;
+  }
+  .project-meta strong { color: #555; }
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 6px;
+  }
+  .tech-tag {
+    font-size: 11px;
+    background: #f1f5f9;
+    color: #475569;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: "SF Mono", "Consolas", "Courier New", monospace;
+  }
+  .project ul {
+    list-style: none;
+    padding: 0;
+  }
+  .project ul li {
+    font-size: 13px;
+    color: #555;
+    padding: 2px 0 2px 16px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .project ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    top: 2px;
+    color: #0f3460;
+    font-size: 10px;
+  }
+  .project ul li strong {
+    color: #0f3460;
+    font-weight: 600;
+  }
+
+  /* ===== 技能与证书 ===== */
+  .skill-block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+    align-items: baseline;
+  }
+  .skill-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f3460;
+    min-width: 80px;
+  }
+  .skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .skill-item {
+    font-size: 12px;
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    color: #1e40af;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  /* ===== 打印适配 ===== */
+  @media print {
+    body { background: #fff; }
+    .page {
+      margin: 0;
+      box-shadow: none;
+      width: 100%;
+    }
+    .project:hover { border-left-color: #e2e8f0; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ===== 头部 ===== -->
+  <div class="header">
+    <h1>顾国亮</h1>
+    <div class="subtitle">数据科学与大数据技术 · 本科在读 · 19岁</div>
+    <div class="contact-row">
+      <span>📧 gxc291517@outlook.com</span>
+      <span>📱 15196172726</span>
+      <span>📍 成都</span>
+    </div>
+  </div>
+
+  <!-- ===== 主体 ===== -->
+  <div class="body">
+
+    <!-- 基本信息 -->
+    <div class="section">
+      <div class="section-title">基本信息</div>
+      <div class="info-grid">
+        <div class="item"><span class="label">姓　名</span><span class="value">顾国亮</span></div>
+        <div class="item"><span class="label">年　龄</span><span class="value">19岁</span></div>
+        <div class="item"><span class="label">学　历</span><span class="value">本科</span></div>
+        <div class="item"><span class="label">专　业</span><span class="value">数据科学与大数据技术</span></div>
+        <div class="item"><span class="label">邮　箱</span><span class="value">gxc291517@outlook.com</span></div>
+        <div class="item"><span class="label">电　话</span><span class="value">15196172726</span></div>
+      </div>
+    </div>
+
+    <!-- 技能概览 -->
+    <div class="section">
+      <div class="section-title">技能概览</div>
+      <div class="skill-block">
+        <span class="skill-label">编程语言</span>
+        <div class="skill-items">
+          <span class="skill-item">Python</span>
+          <span class="skill-item">SQL</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <span class="skill-label">机器学习/AI</span>
+        <div class="skill-items">
+          <span class="skill-item">TensorFlow / Keras</span>
+          <span class="skill-item">Scikit-learn</span>
+          <span class="skill-item">XGBoost</span>
+          <span class="skill-item">OpenCV</span>
+          <span class="skill-item">CNN</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <span class="skill-label">Web开发</span>
+        <div class="skill-items">
+          <span class="skill-item">Flask</span>
+          <span class="skill-item">HTML / CSS</span>
+          <span class="skill-item">JavaScript</span>
+          <span class="skill-item">RESTful API</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <span class="skill-label">数据分析</span>
+        <div class="skill-items">
+          <span class="skill-item">Pandas</span>
+          <span class="skill-item">NumPy</span>
+          <span class="skill-item">Matplotlib</span>
+          <span class="skill-item">SPSS</span>
+          <span class="skill-item">数据可视化</span>
+          <span class="skill-item">网络爬虫</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <span class="skill-label">AI编程工具</span>
+        <div class="skill-items">
+          <span class="skill-item">Claude Code</span>
+          <span class="skill-item">Codex</span>
+          <span class="skill-item">Git</span>
+        </div>
+      </div>
+      <div class="skill-block">
+        <span class="skill-label">办公/设计软件</span>
+        <div class="skill-items">
+          <span class="skill-item">WPS</span>
+          <span class="skill-item">Photoshop (PS)</span>
+          <span class="skill-item">Premiere Pro (PR)</span>
+          <span class="skill-item">Microsoft Office</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 项目经历 ===== -->
+    <div class="section">
+      <div class="section-title">项目经历</div>
+
+      <!-- 项目1: 智能机器人情感交互系统 -->
+      <div class="project">
+        <div class="project-header">
+          <span class="project-name">智能机器人情感交互系统</span>
+          <span class="project-role">项目核心成员</span>
+        </div>
+        <div class="project-meta"><strong>2026年</strong></div>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">TensorFlow/Keras</span>
+          <span class="tech-tag">OpenCV</span>
+          <span class="tech-tag">大模型API</span>
+          <span class="tech-tag">模块化架构</span>
+        </div>
+        <ul>
+          <li>设计并实现<strong>模块化系统架构</strong>，拆分为人脸检测、情绪识别、智能对话、摄像头管理等6大功能模块，提升可维护性与扩展性</li>
+          <li>封装人脸检测模块，基于<strong>OpenCV Haar Cascade</strong>算法实现实时人脸定位与跟踪，检测帧率达20+ FPS</li>
+          <li>集成<strong>CNN情绪识别模型</strong>，完成48×48灰度图像预处理与7分类情绪推理，支持置信度阈值过滤</li>
+          <li>接入<strong>大模型API</strong>实现基于情绪状态的个性化智能回复，支持多轮对话上下文管理</li>
+          <li>开发基础问答模块作为<strong>降级方案</strong>，基于关键词匹配+随机回复策略，保障大模型不可用时的系统可用性</li>
+          <li>实现摄像头实时采集→人脸检测→情绪识别→对话输出的<strong>全链路打通</strong>与性能优化</li>
+        </ul>
+      </div>
+
+      <!-- 项目2: 人脸情绪识别AI模型 -->
+      <div class="project">
+        <div class="project-header">
+          <span class="project-name">人脸情绪识别AI模型 — 数据采集与特征工程</span>
+          <span class="project-role">项目核心成员</span>
+        </div>
+        <div class="project-meta"><strong>2026年</strong></div>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">OpenCV</span>
+          <span class="tech-tag">NumPy</span>
+          <span class="tech-tag">Matplotlib</span>
+          <span class="tech-tag">TensorFlow/Keras</span>
+          <span class="tech-tag">数据增强</span>
+        </div>
+        <ul>
+          <li>参与构建<strong>1000+张</strong>人脸情绪数据集，覆盖7种基本情绪类别，制定数据采集规范（光线、构图、表情标准）</li>
+          <li>使用OpenCV Haar Cascade实现<strong>人脸检测与自动截取</strong>，构建标准化人脸数据集，统一图像尺寸与格式</li>
+          <li>编写<strong>自动化数据清洗脚本</strong>，完成损坏检测、尺寸校验、亮度筛选等多维度质量检查</li>
+          <li>实现<strong>6种数据增强策略</strong>（旋转、平移、缩放、翻转、亮度调整、噪声），数据集扩充5倍以上，提升泛化能力</li>
+          <li>完成数据集<strong>多维度分析</strong>：类别分布、亮度/清晰度分布、情绪混淆对分析，输出可视化分析报告</li>
+          <li>参与CNN模型训练与调优，输出.h5格式模型文件，正负面情绪二分类准确率达57%+</li>
+        </ul>
+      </div>
+
+      <!-- 项目3: Web安全漏洞靶场 -->
+      <div class="project">
+        <div class="project-header">
+          <span class="project-name">Web安全漏洞靶场（SRC漏洞挖掘练习平台）</span>
+          <span class="project-role">独立完成</span>
+        </div>
+        <div class="project-meta"><strong>2026年</strong></div>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Flask</span>
+          <span class="tech-tag">SQLite</span>
+          <span class="tech-tag">HTML/CSS</span>
+          <span class="tech-tag">Web安全</span>
+        </div>
+        <ul>
+          <li>独立开发<strong>Web安全漏洞练习平台</strong>，涵盖OWASP Top 10中7大类常见漏洞（IDOR、XSS、SQL注入、命令注入、敏感信息泄露、认证绕过、业务逻辑漏洞）</li>
+          <li>设计模拟真实业务场景：用户系统、论坛发帖、转账功能、Ping工具等，每种漏洞均对应具体的业务功能</li>
+          <li>实现<strong>暗黑主题前端界面</strong>，使用Jinja2模板引擎构建9个页面，包含漏洞介绍、攻击演示、工具推荐等模块</li>
+          <li>通过实战开发深入理解<strong>Web安全攻防原理</strong>及各漏洞的修复方案（参数化查询、输入校验、权限控制等）</li>
+        </ul>
+      </div>
+
+      <!-- 项目4: 个人作品集网站 -->
+      <div class="project">
+        <div class="project-header">
+          <span class="project-name">个人作品集网站</span>
+          <span class="project-role">独立完成</span>
+        </div>
+        <div class="project-meta"><strong>2026年</strong></div>
+        <div class="tech-tags">
+          <span class="tech-tag">HTML5</span>
+          <span class="tech-tag">CSS3</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">Canvas动画</span>
+          <span class="tech-tag">响应式设计</span>
+          <span class="tech-tag">Claude Code</span>
+        </div>
+        <ul>
+          <li>独立设计并开发<strong>个人作品集展示网站</strong>，展示8个AI/ML/数据科学实战项目及技能矩阵</li>
+          <li>实现<strong>Canvas粒子动画背景</strong>，粒子连线交互效果，打造科技感视觉体验</li>
+          <li>采用<strong>暗黑主题UI设计</strong>，实现响应式布局，适配PC端与移动端</li>
+          <li>使用<strong>Intersection Observer API</strong>实现滚动渐显动画，提升页面交互体验</li>
+          <li>借助<strong>Claude Code / Codex 等AI编程工具</strong>辅助开发，高效完成从设计到部署的全流程</li>
+        </ul>
+      </div>
+
+      <!-- 项目5: 集成学习模型对比分析 -->
+      <div class="project">
+        <div class="project-header">
+          <span class="project-name">集成学习模型对比分析</span>
+          <span class="project-role">独立完成</span>
+        </div>
+        <div class="project-meta"><strong>2026年</strong></div>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Scikit-learn</span>
+          <span class="tech-tag">XGBoost</span>
+          <span class="tech-tag">Pandas</span>
+          <span class="tech-tag">Matplotlib</span>
+          <span class="tech-tag">GridSearchCV</span>
+        </div>
+        <ul>
+          <li>基于<strong>Titanic生存预测数据集</strong>，对比分析5种机器学习模型（逻辑回归、决策树、随机森林、AdaBoost、XGBoost）</li>
+          <li>完成数据预处理：缺失值填充、特征编码（LabelEncoder）、特征标准化</li>
+          <li>使用<strong>5折交叉验证 + GridSearchCV</strong>进行超参数调优，寻找各模型最优参数组合</li>
+          <li>多维度模型评估：准确率、精确率、召回率、F1分数、AUC值，输出完整对比报告</li>
+          <li><strong>随机森林准确率达81.3%，AUC达0.785</strong>，验证了集成学习相比弱模型的显著提升</li>
+        </ul>
+      </div>
+
+      <!-- 项目6: 决策树算法实训 -->
+      <div class="project">
+        <div class="project-header">
+          <span class="project-name">决策树算法实训 — 交通事故预测</span>
+          <span class="project-role">独立完成</span>
+        </div>
+        <div class="project-meta"><strong>2026年</strong></div>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Scikit-learn</span>
+          <span class="tech-tag">Pandas</span>
+          <span class="tech-tag">Matplotlib</span>
+          <span class="tech-tag">OneHotEncoder</span>
+        </div>
+        <ul>
+          <li>基于800条交通事故数据完成<strong>全流程处理</strong>：数据探索、缺失值处理、异常值截断、特征编码</li>
+          <li>构建<strong>分类决策树</strong>（3分类事故严重程度预测）与<strong>回归决策树</strong>（预测救援响应时间，R²=0.84）</li>
+          <li>完成剪枝实验对比max_depth=3/5/7/15四种深度，分析过拟合现象；绘制训练/测试准确率曲线<strong>定位过拟合拐点</strong></li>
+          <li><strong>特征重要性分析</strong>识别出路段类型、限速等级、驾龄分级为Top3重要特征</li>
+        </ul>
+      </div>
+
+      <!-- 项目7: 纵横小说数据爬取 -->
+      <div class="project">
+        <div class="project-header">
+          <span class="project-name">纵横小说数据爬取与可视化分析</span>
+          <span class="project-role">独立完成</span>
+        </div>
+        <div class="project-meta"><strong>2025年</strong></div>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Requests</span>
+          <span class="tech-tag">CSV</span>
+          <span class="tech-tag">Matplotlib</span>
+          <span class="tech-tag">反爬策略</span>
+        </div>
+        <ul>
+          <li>爬取纵横小说<strong>3500+条</strong>数据，模拟移动端请求头突破反爬机制</li>
+          <li>设计反爬策略：Session会话保持、<strong>3次重试机制</strong>、随机延时、动态Referer、完整请求头伪装</li>
+          <li>数据结构化存储为3份CSV（书籍主数据、分类占比、作者偏好），支持UTF-8-BOM编码</li>
+          <li>完成<strong>多维度分析</strong>（分类分布、连载状态、高产作者排行）并生成专业可视化图表（300DPI）</li>
+        </ul>
+      </div>
+
+      <!-- 项目8: 自动写诗程序 -->
+      <div class="project">
+        <div class="project-header">
+          <span class="project-name">自动写诗程序</span>
+          <span class="project-role">独立完成</span>
+        </div>
+        <div class="project-meta"><strong>2025年</strong></div>
+        <div class="tech-tags">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">NLP</span>
+          <span class="tech-tag">文本生成</span>
+        </div>
+        <ul>
+          <li>设计诗歌生成算法，支持<strong>五言/七言绝句</strong>等多种体裁</li>
+          <li>实现押韵规则与平仄规律控制，保障诗歌格律规范性</li>
+          <li>构建诗词语料库，支持<strong>主题关键词引导生成</strong>，提升诗歌语义连贯性与文学性</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- 证书 -->
+    <div class="section">
+      <div class="section-title">证书</div>
+      <div class="skill-block">
+        <div class="skill-items">
+          <span class="skill-item">C1 驾驶证</span>
+          <span class="skill-item">Microsoft Office 证书</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
